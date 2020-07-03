@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище BDAdModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Organisation" Type="int" Nullable="false" />
+          <Property Name="Id_Newspaper" Type="int" Nullable="false" />
+          <Property Name="Number" Type="nvarchar(max)" />
+          <Property Name="Size" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="NewspapersSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar(max)" />
+          <Property Name="Price" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="OrganisationsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar(max)" />
+          <Property Name="Adress" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_AdsSet_NewspapersSet">
+          <End Role="NewspapersSet" Type="Self.NewspapersSet" Multiplicity="1" />
+          <End Role="AdsSet" Type="Self.AdsSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NewspapersSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdsSet">
+              <PropertyRef Name="Id_Newspaper" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdsSet_OrganisationsSet">
+          <End Role="OrganisationsSet" Type="Self.OrganisationsSet" Multiplicity="1" />
+          <End Role="AdsSet" Type="Self.AdsSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrganisationsSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdsSet">
+              <PropertyRef Name="Id_Organisation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище BDAdModelContainer">
+          <EntitySet Name="AdsSet" EntityType="Self.AdsSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewspapersSet" EntityType="Self.NewspapersSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrganisationsSet" EntityType="Self.OrganisationsSet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AdsSet_NewspapersSet" Association="Self.FK_AdsSet_NewspapersSet">
+            <End Role="NewspapersSet" EntitySet="NewspapersSet" />
+            <End Role="AdsSet" EntitySet="AdsSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdsSet_OrganisationsSet" Association="Self.FK_AdsSet_OrganisationsSet">
+            <End Role="OrganisationsSet" EntitySet="OrganisationsSet" />
+            <End Role="AdsSet" EntitySet="AdsSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BDAdModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AdsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Organisation" Type="Int32" Nullable="false" />
+          <Property Name="Id_Newspaper" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Size" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NewspapersSet" Relationship="Self.FK_AdsSet_NewspapersSet" FromRole="AdsSet" ToRole="NewspapersSet" />
+          <NavigationProperty Name="OrganisationsSet" Relationship="Self.FK_AdsSet_OrganisationsSet" FromRole="AdsSet" ToRole="OrganisationsSet" />
+        </EntityType>
+        <EntityType Name="NewspapersSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AdsSet" Relationship="Self.FK_AdsSet_NewspapersSet" FromRole="NewspapersSet" ToRole="AdsSet" />
+        </EntityType>
+        <EntityType Name="OrganisationsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AdsSet" Relationship="Self.FK_AdsSet_OrganisationsSet" FromRole="OrganisationsSet" ToRole="AdsSet" />
+        </EntityType>
+        <Association Name="FK_AdsSet_NewspapersSet">
+          <End Role="NewspapersSet" Type="Self.NewspapersSet" Multiplicity="1" />
+          <End Role="AdsSet" Type="Self.AdsSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NewspapersSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdsSet">
+              <PropertyRef Name="Id_Newspaper" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdsSet_OrganisationsSet">
+          <End Role="OrganisationsSet" Type="Self.OrganisationsSet" Multiplicity="1" />
+          <End Role="AdsSet" Type="Self.AdsSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrganisationsSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdsSet">
+              <PropertyRef Name="Id_Organisation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BDAdEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AdsSet" EntityType="Self.AdsSet" />
+          <EntitySet Name="NewspapersSet" EntityType="Self.NewspapersSet" />
+          <EntitySet Name="OrganisationsSet" EntityType="Self.OrganisationsSet" />
+          <AssociationSet Name="FK_AdsSet_NewspapersSet" Association="Self.FK_AdsSet_NewspapersSet">
+            <End Role="NewspapersSet" EntitySet="NewspapersSet" />
+            <End Role="AdsSet" EntitySet="AdsSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdsSet_OrganisationsSet" Association="Self.FK_AdsSet_OrganisationsSet">
+            <End Role="OrganisationsSet" EntitySet="OrganisationsSet" />
+            <End Role="AdsSet" EntitySet="AdsSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище BDAdModelContainer" CdmEntityContainer="BDAdEntities">
+          <EntitySetMapping Name="AdsSet">
+            <EntityTypeMapping TypeName="BDAdModel.AdsSet">
+              <MappingFragment StoreEntitySet="AdsSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_Organisation" ColumnName="Id_Organisation" />
+                <ScalarProperty Name="Id_Newspaper" ColumnName="Id_Newspaper" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewspapersSet">
+            <EntityTypeMapping TypeName="BDAdModel.NewspapersSet">
+              <MappingFragment StoreEntitySet="NewspapersSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrganisationsSet">
+            <EntityTypeMapping TypeName="BDAdModel.OrganisationsSet">
+              <MappingFragment StoreEntitySet="OrganisationsSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

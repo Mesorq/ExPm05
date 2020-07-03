@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище BDAdModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AdsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_Organisation" Type="int" Nullable="false" />
+    <Property Name="Id_Newspaper" Type="int" Nullable="false" />
+    <Property Name="Number" Type="nvarchar(max)" />
+    <Property Name="Size" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="NewspapersSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="Phone" Type="nvarchar(max)" />
+    <Property Name="Price" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="OrganisationsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="Phone" Type="nvarchar(max)" />
+    <Property Name="Adress" Type="nvarchar(max)" />
+  </EntityType>
+  <Association Name="FK_AdsSet_NewspapersSet">
+    <End Role="NewspapersSet" Type="Self.NewspapersSet" Multiplicity="1" />
+    <End Role="AdsSet" Type="Self.AdsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NewspapersSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AdsSet">
+        <PropertyRef Name="Id_Newspaper" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AdsSet_OrganisationsSet">
+    <End Role="OrganisationsSet" Type="Self.OrganisationsSet" Multiplicity="1" />
+    <End Role="AdsSet" Type="Self.AdsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrganisationsSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AdsSet">
+        <PropertyRef Name="Id_Organisation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище BDAdModelContainer">
+    <EntitySet Name="AdsSet" EntityType="Self.AdsSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NewspapersSet" EntityType="Self.NewspapersSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrganisationsSet" EntityType="Self.OrganisationsSet" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_AdsSet_NewspapersSet" Association="Self.FK_AdsSet_NewspapersSet">
+      <End Role="NewspapersSet" EntitySet="NewspapersSet" />
+      <End Role="AdsSet" EntitySet="AdsSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AdsSet_OrganisationsSet" Association="Self.FK_AdsSet_OrganisationsSet">
+      <End Role="OrganisationsSet" EntitySet="OrganisationsSet" />
+      <End Role="AdsSet" EntitySet="AdsSet" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

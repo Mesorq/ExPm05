@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BDAdModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AdsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id_Organisation" Type="Int32" Nullable="false" />
+    <Property Name="Id_Newspaper" Type="Int32" Nullable="false" />
+    <Property Name="Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Size" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="NewspapersSet" Relationship="Self.FK_AdsSet_NewspapersSet" FromRole="AdsSet" ToRole="NewspapersSet" />
+    <NavigationProperty Name="OrganisationsSet" Relationship="Self.FK_AdsSet_OrganisationsSet" FromRole="AdsSet" ToRole="OrganisationsSet" />
+  </EntityType>
+  <EntityType Name="NewspapersSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AdsSet" Relationship="Self.FK_AdsSet_NewspapersSet" FromRole="NewspapersSet" ToRole="AdsSet" />
+  </EntityType>
+  <EntityType Name="OrganisationsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AdsSet" Relationship="Self.FK_AdsSet_OrganisationsSet" FromRole="OrganisationsSet" ToRole="AdsSet" />
+  </EntityType>
+  <Association Name="FK_AdsSet_NewspapersSet">
+    <End Role="NewspapersSet" Type="Self.NewspapersSet" Multiplicity="1" />
+    <End Role="AdsSet" Type="Self.AdsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NewspapersSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AdsSet">
+        <PropertyRef Name="Id_Newspaper" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AdsSet_OrganisationsSet">
+    <End Role="OrganisationsSet" Type="Self.OrganisationsSet" Multiplicity="1" />
+    <End Role="AdsSet" Type="Self.AdsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrganisationsSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AdsSet">
+        <PropertyRef Name="Id_Organisation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BDAdEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AdsSet" EntityType="Self.AdsSet" />
+    <EntitySet Name="NewspapersSet" EntityType="Self.NewspapersSet" />
+    <EntitySet Name="OrganisationsSet" EntityType="Self.OrganisationsSet" />
+    <AssociationSet Name="FK_AdsSet_NewspapersSet" Association="Self.FK_AdsSet_NewspapersSet">
+      <End Role="NewspapersSet" EntitySet="NewspapersSet" />
+      <End Role="AdsSet" EntitySet="AdsSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AdsSet_OrganisationsSet" Association="Self.FK_AdsSet_OrganisationsSet">
+      <End Role="OrganisationsSet" EntitySet="OrganisationsSet" />
+      <End Role="AdsSet" EntitySet="AdsSet" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

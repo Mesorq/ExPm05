@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище BDAdModelContainer" CdmEntityContainer="BDAdEntities">
+    <EntitySetMapping Name="AdsSet">
+      <EntityTypeMapping TypeName="BDAdModel.AdsSet">
+        <MappingFragment StoreEntitySet="AdsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Id_Organisation" ColumnName="Id_Organisation" />
+          <ScalarProperty Name="Id_Newspaper" ColumnName="Id_Newspaper" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NewspapersSet">
+      <EntityTypeMapping TypeName="BDAdModel.NewspapersSet">
+        <MappingFragment StoreEntitySet="NewspapersSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrganisationsSet">
+      <EntityTypeMapping TypeName="BDAdModel.OrganisationsSet">
+        <MappingFragment StoreEntitySet="OrganisationsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Adress" ColumnName="Adress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
